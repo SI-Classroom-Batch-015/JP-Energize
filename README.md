@@ -1,14 +1,14 @@
 # JP-Energize
 Add alternativ Energy System
 
-Willkommen zu meinem neuen Projekt in IOS/SwiftUI
+Willkommen zu meinem neuen Projekt in IOS/SwiftUI JP Energize
 
 
-JP Energize
 
 JP Energize wird eine coole App, die es Leuten ermöglicht, ihre Solarenergie optimal zu nutzen, zu speichern und sogar mit der Community zu teilen. Sie ist perfekt für alle, die ihren eigenen Strom produzieren und Teil einer smarten Energie-Zukunft sein wollen!
 
 Features
+
 
 Intelligentes Energiemanagement: 
 Automatische Steuerung deiner Solaranlage und deines Batteriespeichers.
@@ -20,6 +20,8 @@ Gemeinsame Batteriespeicher: Investiere zusammen mit anderen in größere Speich
 Notfallreserven: Teile Energie für den Notfall, damit alle sicher durch den Stromausfall kommen.
 
 Energiebilanz: Behalte den Überblick über deine Einsparungen und deinen Beitrag zur Umwelt.
+
+
 Technologien
 
 Xcode und SwiftUI: 
@@ -31,6 +33,8 @@ API-Anbindung: Damit die App mit Solar- und Batteriesystemen und dem Marktplatz 
 
 Firebase: Für die einfache Handhabung von User-Daten, Authentifizierung und Echtzeit-Datenbanken.
 Setup
+
+
 
 1. Xcode Projekt erstellen:
 
