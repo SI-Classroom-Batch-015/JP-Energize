@@ -1,5 +1,4 @@
-# JP-Energize
-Add alternativ Energy System
+### JP-Energize
 
 Willkommen zu meinem neuen Projekt in IOS/SwiftUI JP Energize
 
