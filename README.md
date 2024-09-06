@@ -1,6 +1,6 @@
 # JP-Energize
 
-Willkommen zu meinem neuen Projekt in IOS/SwiftUI JP Energize
+### Willkommen zu meinem neuen Projekt in IOS/SwiftUI JP Energize
 
 
 
@@ -10,45 +10,44 @@ JP Energize wird eine coole App, die es Leuten ermöglicht, ihre Solarenergie op
 ## Design
 
 <p>
-
-
  <img src="screenVorschau.jpg" alt="Bild 1" width="600" height="300">
 </p>
 
 
 
-Features
+## Features
 
 
-Intelligentes Energiemanagement: 
-Automatische Steuerung deiner Solaranlage und deines Batteriespeichers.
+- [x] Intelligentes Energiemanagement: Automatische Steuerung deiner Solaranlage und deines Batteriespeichers.
 
-Peer-to-Peer Energiehandel: Teile oder handel deine überschüssige Energie mit deinen Nachbarn.
+- [x] Peer-to-Peer Energiehandel: Teile oder handel deine überschüssige Energie mit deinen Nachbarn.
 
-Gemeinsame Batteriespeicher: Investiere zusammen mit anderen in größere Speicher und nutzt sie gemeinsam.
+- [x] Gemeinsame Batteriespeicher: Investiere zusammen mit anderen in größere Speicher und nutzt sie gemeinsam.
 
-Notfallreserven: Teile Energie für den Notfall, damit alle sicher durch den Stromausfall kommen.
+- [x] Notfallreserven: Teile Energie für den Notfall, damit alle sicher durch den Stromausfall kommen.
 
-Energiebilanz: Behalte den Überblick über deine Einsparungen und deinen Beitrag zur Umwelt.
+- [x] Energiebilanz: Behalte den Überblick über deine Einsparungen und deinen Beitrag zur Umwelt.
 
 
-Technologien
+## Technologien
 
-Xcode und SwiftUI: 
-Ich baue die App in SwiftUI.
+Xcode und SwiftUI
 
 MVVM-Architektur: Für sauberen und gut strukturierten Code.
 
 API-Anbindung: Damit die App mit Solar- und Batteriesystemen und dem Marktplatz reden kann.
 
 Firebase: Für die einfache Handhabung von User-Daten, Authentifizierung und Echtzeit-Datenbanken.
-Setup
+
+
+
+## Setup
 
 
 
 1. Xcode Projekt erstellen:
 
-Projekt anlegen.
+Projekt anlegen, Repo erstellen
 
 2. MVVM-Architektur einrichten:
 Models:  Swift-Dateien für alle Datenmodelle (z.B. User, EnergyData).
