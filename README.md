@@ -10,7 +10,7 @@ JP Energize wird eine coole App, die es Leuten ermöglicht, ihre Solarenergie op
 ## Design
 
 <p>
- <img src="screenVorschau.jpg" alt="Bild 1" width="600" height="300">
+<img src="./img/screenVorschau.png" width="600">
 </p>
 
 
