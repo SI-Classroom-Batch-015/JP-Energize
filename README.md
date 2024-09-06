@@ -30,15 +30,18 @@ JP Energize wird eine coole App, die es Leuten ermöglicht, ihre Solarenergie op
 
 ## Technologien
 
+### Xcode und SwiftUI: 
+IDE / Framework - Entwicklungsumgebung von Apple
+
+### Firebase: 
+Für die einfache Handhabung von User-Daten, Authentifizierung und Echtzeit-Datenbanken.
+
 ### [MVVM-Architektur](https://www.avanderlee.com/swiftui/mvvm-architectural-coding-pattern-to-structure-views/):
 Für sauberen und gut strukturierten Code.
 
 ### [API-Anbindung](https://developer.nrel.gov/docs/solar/pvwatts/v8/#request-url):
 Damit die App mit Solar- und Batteriesystemen und dem Marktplatz reden kann.
 
-### Xcode und SwiftUI
-
-### Firebase: Für die einfache Handhabung von User-Daten, Authentifizierung und Echtzeit-Datenbanken.
 
 
 
