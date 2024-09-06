@@ -24,7 +24,7 @@ JP Energize wird eine coole App, die es Leuten ermöglicht, ihre Solarenergie op
 
 - [x] Peer-to-Peer Energiehandel: Teile oder handel deine überschüssige Energie mit deinen Nachbarn.
 
-- [x] Gemeinsame Batteriespeicher: Investiere zusammen mit anderen in größere Speicher und nutzt sie gemeinsam.
+- [x] Energiebilanz: Behalte den Überblick über deine Einsparungen und deinen Beitrag zur Umwelt.
 
 
 
@@ -68,8 +68,8 @@ Damit die App mit Solar- und Batteriesystemen und dem Marktplatz reden kann.
 ## Ausblick: Was soll noch folgen ?
 
 - [x] Notfallreserven: Teile Energie für den Notfall, damit alle sicher durch den Stromausfall kommen.
-
-- [x] Energiebilanz: Behalte den Überblick über deine Einsparungen und deinen Beitrag zur Umwelt.
+      
+- [x] Gemeinsame Batteriespeicher: Investiere zusammen mit anderen in größere Speicher und nutzt sie gemeinsam.
 
 
 
