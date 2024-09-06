@@ -35,6 +35,7 @@ JP Energize wird eine coole App, die es Leuten ermöglicht, ihre Solarenergie op
 ### MVVM-Architektur: Für sauberen und gut strukturierten Code.
 
 ### API-Anbindung: Damit die App mit Solar- und Batteriesystemen und dem Marktplatz reden kann.
+[Hier klicken, um mehr zu erfahren]([https://www.beispielseite.de](https://developer.nrel.gov/docs/solar/pvwatts/v8/#request-url))
 
 ### Firebase: Für die einfache Handhabung von User-Daten, Authentifizierung und Echtzeit-Datenbanken.
 
