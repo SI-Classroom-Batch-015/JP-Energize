@@ -33,6 +33,7 @@ JP Energize wird eine coole App, die es Leuten ermöglicht, ihre Solarenergie op
 ### Xcode und SwiftUI
 
 ### MVVM-Architektur: Für sauberen und gut strukturierten Code.
+[Hier klicken, um mehr zu erfahren](https://www.avanderlee.com/swiftui/mvvm-architectural-coding-pattern-to-structure-views/)
 
 ### API-Anbindung: Damit die App mit Solar- und Batteriesystemen und dem Marktplatz reden kann.
 [Hier klicken, um mehr zu erfahren](https://developer.nrel.gov/docs/solar/pvwatts/v8/#request-url)
