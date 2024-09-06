@@ -46,7 +46,7 @@ Damit die App mit Solar- und Batteriesystemen und dem Marktplatz reden kann.
 
 
 
-## Setup
+## Installation
 
 
 ### 1. Xcode Projekt erstellen
