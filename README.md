@@ -56,9 +56,7 @@ JP Energize wird eine coole App, die es Leuten ermöglicht, ihre Solarenergie op
 
 ### 6. Firebase einbinden
 
-### 7. UI bauen
-
-### 8. Testen durch Simulator/ physisches Iphone
+### 7. Testen durch Simulator/ physisches Iphone
 
 
 
