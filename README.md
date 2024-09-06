@@ -9,6 +9,8 @@ JP Energize wird eine coole App, die es Leuten ermöglicht, ihre Solarenergie op
 
 ## Design
 
+### Das Bild ist ein Schema, welches als Inspiration dient.
+
 <p>
 <img src="./img/screenVorschau.png" width="600">
 </p>
@@ -24,59 +26,47 @@ JP Energize wird eine coole App, die es Leuten ermöglicht, ihre Solarenergie op
 
 - [x] Gemeinsame Batteriespeicher: Investiere zusammen mit anderen in größere Speicher und nutzt sie gemeinsam.
 
-- [x] Notfallreserven: Teile Energie für den Notfall, damit alle sicher durch den Stromausfall kommen.
-
-- [x] Energiebilanz: Behalte den Überblick über deine Einsparungen und deinen Beitrag zur Umwelt.
 
 
 ## Technologien
 
-Xcode und SwiftUI
+### Xcode und SwiftUI
 
-MVVM-Architektur: Für sauberen und gut strukturierten Code.
+### MVVM-Architektur: Für sauberen und gut strukturierten Code.
 
-API-Anbindung: Damit die App mit Solar- und Batteriesystemen und dem Marktplatz reden kann.
+### API-Anbindung: Damit die App mit Solar- und Batteriesystemen und dem Marktplatz reden kann.
 
-Firebase: Für die einfache Handhabung von User-Daten, Authentifizierung und Echtzeit-Datenbanken.
+### Firebase: Für die einfache Handhabung von User-Daten, Authentifizierung und Echtzeit-Datenbanken.
+
 
 
 
 ## Setup
 
 
+### 1. Xcode Projekt erstellen
 
-1. Xcode Projekt erstellen:
+### 2. MVVM-Architektur verwenden
 
-Projekt anlegen, Repo erstellen
+### 3. Views: UI in SwiftUI
 
-2. MVVM-Architektur einrichten:
-Models:  Swift-Dateien für alle Datenmodelle (z.B. User, EnergyData).
+### 4.ViewModels: Hier kommt die Logik rein, die zwischen den Views und Modellen vermittelt.
 
-Views: UI in SwiftUI, ich werde darauf achten, den Code schlank zu halten.
+### 5. API-Anbindung: PVWatts V8
 
-ViewModels: Hier kommt die Logik rein, die zwischen den Views und Modellen vermittelt.
+### 6. Firebase einbinden
 
-3. API-Anbindung:
-Ich verwende PVWatts V8, um Daten von Photovoltaik zu erhalten
-und Echtzeit Synchronisierung zu ermöglichen.
+### 7. UI bauen
 
-4. Firebase einbinden:
-Ich erstelle in Firebase ein neues Projekt.
-In Xcode, Firebase SDK hinzufügen (über Swift Package Manager oder CocoaPods).
-Firebase Auth: Einfache Anmeldung und Registrierung.
-Firebase Firestore: Zum Speichern von User-Daten und Energie-Transaktionen.
-Firebase Realtime Database: Für die Echtzeit-Aktualisierung der Energie-Daten.
+### 8. Testen durch Simulator/ physisches Iphone
 
-5. UI bauen:
-Dashboard: Zeigt den Energieverbrauch und -produktion an.
-Marketplace: Hier können Nutzer Energie handeln.
-Settings: Für die Konfiguration der Speicheroptionen und Notfallreserven.
-3 Screens CHECK
 
-6. Testen:
-JP Energize App auf verschiedenen Geräten (iPhone, iPad) in der Xcode-Simulation.
-Ich teste die API-Calls und Firebase-Verbindungen mit Mock-Daten.
 
+## Ausblick: Was soll noch folgen ?
+
+- [x] Notfallreserven: Teile Energie für den Notfall, damit alle sicher durch den Stromausfall kommen.
+
+- [x] Energiebilanz: Behalte den Überblick über deine Einsparungen und deinen Beitrag zur Umwelt.
 
 
 
