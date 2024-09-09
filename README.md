@@ -36,10 +36,10 @@ IDE / Framework - Entwicklungsumgebung von Apple
 ### Firebase: 
 Für die einfache Handhabung von User-Daten, Authentifizierung und Echtzeit-Datenbanken.
 
-### [MVVM-Architektur](https://www.avanderlee.com/swiftui/mvvm-architectural-coding-pattern-to-structure-views/):
+### MVVM-Architektur:
 Für sauberen und gut strukturierten Code.
 
-### [API-Anbindung](https://developer.nrel.gov/docs/solar/pvwatts/v8/#request-url):
+### API-Anbindung:
 Damit die App mit Solar- und Batteriesystemen und dem Marktplatz reden kann.
 
 
