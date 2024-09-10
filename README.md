@@ -1,7 +1,8 @@
 # JP-Energize
 
-### Willkommen zu meinem neuen Projekt in IOS/SwiftUI JP Energize
 
+## 🚀 Herzlich Willkommen
+"Hallo, ich bin Phillip, derzeit lerne ich bei Syntax die Programmiersprache Swift und freue mich, euch heute einen spannenden Einblick in mein neues Projekt JP Energize zu geben!"
 
 
 JP Energize wird eine coole App, die es Leuten ermöglicht, ihre Solarenergie optimal zu nutzen, zu speichern und sogar mit der Community zu teilen. Sie ist perfekt für alle, die ihren eigenen Strom produzieren und Teil einer smarten Energie-Zukunft sein wollen!
