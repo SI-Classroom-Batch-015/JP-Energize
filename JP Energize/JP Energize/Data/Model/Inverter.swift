@@ -8,9 +8,10 @@
 import Foundation
 
 struct Inverter: Codable {
-  //  let inputs: Inputs?
+    let inputs: Inputs?
     let version: String?
-   // let stationInfo: StationInfo?
+    let station_info: StationInfo?
+  
 }
 
 struct Inputs: Codable {
@@ -20,3 +21,4 @@ struct Inputs: Codable {
 struct StationInfo: Codable {
     let city, state: String?
 }
+
