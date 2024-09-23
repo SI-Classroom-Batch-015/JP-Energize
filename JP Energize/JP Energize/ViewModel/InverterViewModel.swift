@@ -15,6 +15,8 @@ class InverterViewModel: ObservableObject {
     @Published var inverter: Inverter?
     @Published var error: String?
     @Published var localError: InverterAPIError?
+    @Published var selectedMonth: Int = 1
+    private let daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     
     
     private let repository = DataInverterRepository()
@@ -49,4 +51,38 @@ class InverterViewModel: ObservableObject {
             }
         }
     }
+    
+    func dailyKWh(for month: Int) -> Float? {
+        guard month >= 1 && month <= 12,
+              let acMonthly = inverter?.outputs?.ac_monthly,
+              acMonthly.count >= month else {
+            return nil
+        }
+        let monthlyKWh = acMonthly[month - 1]
+        let days = daysInMonth[month - 1]
+        return monthlyKWh / Float(days)
+    }
+    
+    func getCurrentMonthKWh() -> Float? {
+        let currentMonthIndex = Calendar.current.component(.month, from: Date()) - 1
+        
+        if let monthlyKWh = inverter?.outputs?.ac_monthly[currentMonthIndex] {
+            return monthlyKWh
+        } else {
+            return 0
+        }
+    }
+    
+    func getAllTimeKWh() -> Float? {
+        guard let acMonthly = inverter?.outputs?.ac_monthly else {
+            return 0
+        }
+
+        let currentMonthIndex = Calendar.current.component(.month, from: Date()) - 1
+
+        let totalKWh = acMonthly.prefix(currentMonthIndex + 1).reduce(0, +)
+
+        return totalKWh
+    }
+    
 }
