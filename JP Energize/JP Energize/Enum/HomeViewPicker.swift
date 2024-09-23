@@ -8,6 +8,8 @@
 import Foundation
 
 
-enum HomePicker: String, CaseIterable, Codable {
+enum HomePicker: String, Identifiable, CaseIterable {
     case week, month, year
+    
+    var id: Self { self }
 }
