@@ -11,7 +11,8 @@ struct Inverter: Codable {
     let inputs: Inputs?
     let version: String?
     let station_info: StationInfo?
-  
+    let outputs: Outputs?
+    
 }
 
 struct Inputs: Codable {
@@ -20,5 +21,9 @@ struct Inputs: Codable {
 
 struct StationInfo: Codable {
     let city, state: String?
+}
+
+struct Outputs: Codable {
+    let ac_monthly: [Float]
 }
 
