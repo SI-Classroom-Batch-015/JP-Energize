@@ -12,8 +12,6 @@ struct Profile: Codable {
     var firstName: String
     var lastName: String
     var birthDate: Date
-    var email: String
-    var password: String
     var phoneNumber: String
     var profileImage: String
 }
