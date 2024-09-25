@@ -8,12 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
-        TabView{
-            HomeView()
-                .tabItem {
-                    Label("Home", systemImage: "house")
-                }
+        
+        NavigationStack {
+            
+            TabView {
+                HomeView()
+                    .tabItem {
+                        Label("Home", systemImage: "house")
+                    }
+                
+                PanelDetailView()
+                    .tabItem {
+                        Label("Panel Details", systemImage: "info.circle")
+                    }
+            }
         }
     }
 }
