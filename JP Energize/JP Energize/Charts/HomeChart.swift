@@ -9,34 +9,68 @@ import SwiftUI
 import Charts
 
 struct HomeChart: View {
-    var currentValues: [Float]
-    
+    var viewModel: InverterViewModel
+    @Binding var selectedOption: HomePicker
+    var selectedMonth: Int
     
     let months = ["01", "02", "03", "04", "05", "06",
                   "07", "08", "09", "10", "11", "12"]
     
+    let weeks = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+    
     var body: some View {
         
+        
         let currentMonthIndex = Calendar.current.component(.month, from: Date()) - 1
-        let filteredValues = Array(currentValues.prefix(currentMonthIndex + 1))
-        let filteredMonths = Array(months.prefix(currentMonthIndex + 1))
+        let monthlyValues = viewModel.inverter?.outputs?.ac_monthly ?? []
+        let valuesToShow = Array(monthlyValues.prefix(currentMonthIndex + 1))
         
-        let maxValue = currentValues.max() ?? 0
+        let weeklyValues = viewModel.weeklyKWh()
+        let weeklyMaxValue = weeklyValues.max() ?? 0
         
-        Chart {
-            ForEach(Array(filteredValues.enumerated()), id: \.offset) { index, currentValue in
-                BarMark(
-                    x: .value("Monat", months[index]),
-                    y: .value("Wert", currentValue)
-                )
-                .foregroundStyle(currentValue == maxValue ? Color.green : Color.blue)
+        let maxValue: Float = selectedOption == .week ? (weeklyValues.max() ?? 0) : (monthlyValues.prefix(currentMonthIndex + 1).max() ?? 0)
+        
+        
+        switch selectedOption {
+        case .month:
+            
+            Chart {
+                ForEach(0..<valuesToShow.count, id: \.self) { index in
+                    BarMark(
+                        x: .value("Monat", months[index]),
+                        y: .value("Wert", monthlyValues[index])
+                    )
+                    .foregroundStyle(monthlyValues[index] == maxValue ? Color.green : Color.blue)
+                }
             }
+            .chartYScale(domain: 0...600)
+            .chartYAxis {
+                AxisMarks(values: Array(stride(from: 0, through: 600, by: 50)))
+            }
+            .aspectRatio(1, contentMode: .fill)
+            .padding()
+            
+            
+        case .week:
+            Chart {
+                ForEach(0..<weeklyValues.count, id: \.self) { index in
+                    BarMark(
+                        x: .value("Woche", weeks[index]),
+                        y: .value("Wert", weeklyValues[index])
+                    )
+                    .foregroundStyle(weeklyValues[index] == weeklyMaxValue ? Color.green : Color.blue)
+                }
+            }
+            .chartYScale(domain: 0...10)
+            .chartYAxis {
+                AxisMarks(values: Array(stride(from: 0, through: 10, by: 2)))
+            }
+            .aspectRatio(1, contentMode: .fill)
+            .padding()
         }
-        .aspectRatio(1, contentMode: .fit)
-        .padding()
     }
 }
 
 #Preview {
-    HomeChart(currentValues: [324.45, 665.98, 450.25, 600.75, 700.85, 500.32, 678.56, 456.78, 789.99, 345.67, 567.89, 489.12])
+    HomeChart(viewModel: InverterViewModel(), selectedOption: .constant(.month), selectedMonth: Calendar.current.component(.month, from: Date()))
 }

@@ -9,7 +9,7 @@ import Foundation
 
 
 enum HomePicker: String, Identifiable, CaseIterable {
-    case week, month, year
+    case week, month
     
     var id: Self { self }
 }
