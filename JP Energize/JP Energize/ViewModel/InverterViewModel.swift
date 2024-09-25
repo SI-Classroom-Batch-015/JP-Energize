@@ -77,12 +77,29 @@ class InverterViewModel: ObservableObject {
         guard let acMonthly = inverter?.outputs?.ac_monthly else {
             return 0
         }
-
+        
         let currentMonthIndex = Calendar.current.component(.month, from: Date()) - 1
-
+        
         let totalKWh = acMonthly.prefix(currentMonthIndex + 1).reduce(0, +)
-
+        
         return totalKWh
     }
     
+    func weeklyKWh() -> [Float] {
+        guard let acMonthly = inverter?.outputs?.ac_monthly,
+              !acMonthly.isEmpty else {
+            return []
+        }
+        
+        let currentMonthIndex = Calendar.current.component(.month, from: Date()) - 1
+        let monthlyKWh = acMonthly[currentMonthIndex]
+        let daysInCurrentMonth = daysInMonth[currentMonthIndex]
+        let dailyKWh = monthlyKWh / Float(daysInCurrentMonth)
+        
+        return (1...7).map { day in
+            let adjustmentFactor = Float.random(in: 0.8...1.2)
+            return dailyKWh * adjustmentFactor
+        }
+        
+    }
 }
