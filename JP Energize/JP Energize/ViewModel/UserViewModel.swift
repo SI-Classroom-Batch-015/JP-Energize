@@ -6,3 +6,34 @@
 //
 
 import Foundation
+import Observation
+
+
+
+@Observable
+class UserViewModel {
+    
+    func signUp(email: String, password: String) async {
+        do {
+            try await FirebaseAuthManager.shared.signUp(email: email, password: password)
+        } catch {
+            print("Error signUp!\(error.localizedDescription)")
+        }
+    }
+    
+    func signIn(email: String, password: String) async {
+        do {
+            try await FirebaseAuthManager.shared.signIn(email: email, password: password)
+        } catch {
+            print("Error signIn!\(error.localizedDescription)")
+        }
+    }
+    
+    func signOut(email: String, password: String) async {
+        
+        FirebaseAuthManager.shared.signOut()
+        
+    }
+    
+    
+}
