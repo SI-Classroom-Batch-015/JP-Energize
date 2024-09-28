@@ -17,7 +17,11 @@ struct JP_EnergizeApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if FirebaseAuthManager.shared.isUserSignedIn {
+                ContentView()
+            } else {
+                AuthenticationView()
+            }
         }
     }
   
