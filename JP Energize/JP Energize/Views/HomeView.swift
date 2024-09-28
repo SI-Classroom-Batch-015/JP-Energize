@@ -133,7 +133,7 @@ struct HomeView: View {
                         .font(.caption)
                         .fontWeight(.medium)
                         .foregroundStyle(.gray)
-                    Text("Thor Odinson")
+                    Text("")
                         .font(.subheadline)
                         .fontWeight(.medium)
                 }
