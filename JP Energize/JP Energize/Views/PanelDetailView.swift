@@ -15,8 +15,7 @@ struct PanelDetailView: View {
         
         Form {
             
-            
-            
+
             Section{
                 HStack(alignment: .center) {
                     
@@ -30,7 +29,7 @@ struct PanelDetailView: View {
                         .font(.headline)
                 }
                 
-                VStack(alignment: .center){
+                VStack {
                     Image("solarpanel")
                         .resizable()
                         .imageScale(.medium)
@@ -39,6 +38,7 @@ struct PanelDetailView: View {
                     Text("Max Power Output: 600W")
                     
                 }
+                .frame(maxWidth: .infinity, alignment: .center)
             }
             
             Section{
@@ -85,19 +85,57 @@ struct PanelDetailView: View {
                         "4": "2-Achsen"
                     ]
                     HStack{
-                            Text("Monatge:")
+                        Text("Montage:")
                             .foregroundStyle(.gray)
                         
                         if let arrayType = viewModel.inverter?.inputs?.array_type {
                             let description = arrayTypeDescriptions[arrayType] ?? "Unbekannter Typ"
                             Text(description)
-                                
-                                
+                            
+                            
                         } else {
                             Text("Keine Daten verfügbar")
                                 .font(.headline)
                         }
+                    }
+                    .padding(.bottom)
+                    
+                    if let losses = viewModel.inverter?.inputs?.losses {
+                        HStack() {
+                            Text("Betriebsverluste in %:")
+                                .foregroundColor(.gray)
+                            Text(String(losses))
+                                .foregroundColor(.black)
+                              
                         }
+                        .padding(.bottom)
+                    } else {
+                        Text("Keine Daten zu den Betriebsverlusten verfügbar.")
+                    }
+                    
+                    
+                        if let solradMonthly = viewModel.inverter?.outputs?.solrad_monthly {
+                            let currentMonthIndex = Calendar.current.component(.month, from: Date()) - 1
+                            if currentMonthIndex < solradMonthly.count {
+                                HStack {
+                                    VStack{
+                                        Text("Monatl. Sonnenstrahlung")
+                                                   .foregroundColor(.gray)
+                                               Text("für \(currentMonthIndex + 1). Monat")
+                                                   .foregroundColor(.gray)
+                                    }
+                                    Text(String(format: "%.2f kWh/m²", solradMonthly[currentMonthIndex]))
+                                                 .foregroundColor(.black)
+                                }
+                            } else {
+                                Text("Keine Daten für den aktuellen Monat verfügbar.")
+                            }
+                        } else {
+                            Text("Keine Daten verfügbar.")
+                        }
+                    
+                   
+                    
                 }
                 
             }
