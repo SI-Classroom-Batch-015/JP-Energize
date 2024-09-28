@@ -16,7 +16,7 @@ struct Inverter: Codable {
 }
 
 struct Inputs: Codable {
-    let azimuth, system_capacity, tilt, array_type: String?
+    let azimuth, system_capacity, tilt, array_type, losses: String?
 }
 
 struct StationInfo: Codable {
@@ -25,5 +25,6 @@ struct StationInfo: Codable {
 
 struct Outputs: Codable {
     let ac_monthly: [Float]
+    let solrad_monthly: [Float]
 }
 
