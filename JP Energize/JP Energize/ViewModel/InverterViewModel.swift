@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 
-
+@MainActor
 class InverterViewModel: ObservableObject {
     
     @Published var inverter: Inverter?
