@@ -9,7 +9,22 @@ import SwiftUI
 
 struct SettingsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            
+            Spacer()
+            
+            Button("Logout") {
+                FirebaseAuthManager.shared.signOut()
+            }
+            .frame(maxWidth: 250, maxHeight: 44)
+            .background(.red)
+            .cornerRadius(10)
+            .padding()
+            .foregroundStyle(.white)
+            .bold()
+           
+        }
     }
 }
 
