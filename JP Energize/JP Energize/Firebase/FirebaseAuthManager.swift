@@ -9,9 +9,9 @@ import Foundation
 import FirebaseAuth
 
 @Observable
-class FirebaseAuthJPEnergize {
+class FirebaseAuthManager {
     
-    static let shared = FirebaseAuthJPEnergize()
+    static let shared = FirebaseAuthManager()
     
     private let auth = Auth.auth()
     

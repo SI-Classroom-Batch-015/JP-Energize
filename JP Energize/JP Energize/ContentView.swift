@@ -12,16 +12,20 @@ struct ContentView: View {
     var body: some View {
         
         NavigationStack {
-            
+
             TabView {
                 HomeView()
                     .tabItem {
                         Label("Home", systemImage: "house")
                     }
-                
+
                 PanelDetailView()
                     .tabItem {
-                        Label("Panel Details", systemImage: "info.circle")
+                        Label("Panel Details", systemImage: "light.panel")
+                    }
+                SettingsView()
+                    .tabItem {
+                        Label("Settings", systemImage: "gearshape")
                     }
             }
         }
