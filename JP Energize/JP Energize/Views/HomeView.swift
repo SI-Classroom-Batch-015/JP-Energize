@@ -123,7 +123,7 @@ struct HomeView: View {
                 }
                 
                 HomeChart(viewModel: viewModel, selectedOption: $selectedOption, selectedMonth: selectedMonth)
-                    
+                
             }
         }
         .toolbar{
