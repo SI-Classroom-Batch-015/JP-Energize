@@ -20,13 +20,7 @@ struct AuthenticationView: View {
         
         VStack(spacing: 20) {
             
-            //            Image("startpanel")
-            //                .resizable()
-            //                .scaledToFill()
-            //                .frame(height: 250)
-            //                .clipped()
-            //                .ignoresSafeArea(edges: .top)
-            
+          
             
             Image("jpenergize")
                 .resizable()
@@ -36,7 +30,6 @@ struct AuthenticationView: View {
                 .ignoresSafeArea(edges: .top)
             
         }
-        
         
         
         VStack(spacing: 5) {
@@ -64,7 +57,7 @@ struct AuthenticationView: View {
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(10)
                 .padding(.horizontal, 30)
-               
+            
             
             
             Button(action: {
@@ -81,7 +74,7 @@ struct AuthenticationView: View {
             .padding(.horizontal, 30)
             .padding(.top, 10)
         }
-        .padding(.vertical, 30)
+        .padding(.horizontal, 30)
         
         
         HStack{
@@ -93,61 +86,7 @@ struct AuthenticationView: View {
             }
         }
         .sheet(isPresented: $isPresenting) {
-            HStack {
-                
-                Image("startpanel")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 300)
-                    .clipped()
-                    .ignoresSafeArea(edges: .top)
-                
-            }
-            .padding(.bottom)
-            
-            Spacer()
-                
-            VStack {
-                    TextField("Email", text: $email)
-                    .padding()
-                    .background(Color(.secondarySystemBackground))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 30)
-                    
-                    
-                    SecureField("Password", text: $password)
-                    .padding()
-                    .background(Color(.secondarySystemBackground))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 30)
-                    
-                    Button("SignUp") {
-                        attemptSignUp()
-                        dismiss()
-                    }
-                    .fontWeight(.bold)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .padding(.horizontal, 30)
-                    .padding(.top, 20)
-                
-                Spacer()
-                
-                }
-            .padding(.horizontal, 50)
-            
-            
-                
-            
-        }
-    }
-    
-    func attemptSignUp() {
-        Task {
-            await userViewModel.signUp(email: email, password: password)
+            SignUpSheet(email: email, password: password)
         }
     }
     
@@ -156,7 +95,6 @@ struct AuthenticationView: View {
             await userViewModel.signIn(email: email, password: password)
         }
     }
-    
 }
 
 #Preview {
