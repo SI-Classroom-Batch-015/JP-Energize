@@ -15,7 +15,6 @@ struct PanelDetailView: View {
         
         Form {
             
-
             Section{
                 HStack(alignment: .center) {
                     
@@ -47,7 +46,10 @@ struct PanelDetailView: View {
                     HStack{
                         Text("Standort:")
                             .foregroundStyle(.gray)
-                        Text(viewModel.inverter?.station_info?.state ?? "Geht nicht")
+                        
+                        Spacer()
+                        
+                        Text(viewModel.inverter?.station_info?.state ?? "Keine Daten verfügbar")
                         
                     }
                     .padding(.bottom)
@@ -56,23 +58,44 @@ struct PanelDetailView: View {
                     HStack{
                         Text("Version:")
                             .foregroundStyle(.gray)
-                        Text(viewModel.inverter?.version ?? "Geht nicht")
+                        
+                        Spacer()
+                        
+                        Text(viewModel.inverter?.version ?? "Keine Daten verfügbar")
                     }
                     .padding(.bottom)
                     
+                    let azimutDescription: [String: String] = [
+                        "0": " 0 = Nördlich ausgerichtet",
+                        "90": "90 = Östlich ausgerichtet ",
+                        "180": "180 = Südlich ausgerichtet",
+                        "270": "270 = Westlich ausgerichtet",
+                        
+                    ]
                     HStack{
                         Text("Azimutwinkel:")
                             .foregroundStyle(.gray)
                         
-                        Text(viewModel.inverter?.inputs?.azimuth ?? "Geht nicht")
-                        Text("Südlich ausgerichtet")
-                            .foregroundStyle(.gray)
+                        Spacer()
+                        
+                        if let azimuth = viewModel.inverter?.inputs?.azimuth {
+                            let descriptionAzimut = azimutDescription[azimuth] ?? "Unbekannter Typ"
+                            Text(descriptionAzimut)
+                            
+                            
+                        } else {
+                            Text("Keine Daten verfügbar")
+                            
+                        }
                     }
                     .padding(.bottom)
                     
                     HStack{
                         Text("Neigungswinkel:")
                             .foregroundStyle(.gray)
+                        
+                        Spacer()
+                        
                         Text("\(String(viewModel.inverter?.inputs?.tilt ?? "0")) Grad")
                     }
                     .padding(.bottom)
@@ -88,6 +111,8 @@ struct PanelDetailView: View {
                         Text("Montage:")
                             .foregroundStyle(.gray)
                         
+                        Spacer()
+                        
                         if let arrayType = viewModel.inverter?.inputs?.array_type {
                             let description = arrayTypeDescriptions[arrayType] ?? "Unbekannter Typ"
                             Text(description)
@@ -95,7 +120,9 @@ struct PanelDetailView: View {
                             
                         } else {
                             Text("Keine Daten verfügbar")
-                                .font(.headline)
+                                .foregroundColor(.red)
+                            
+                            
                         }
                     }
                     .padding(.bottom)
@@ -104,37 +131,104 @@ struct PanelDetailView: View {
                         HStack() {
                             Text("Betriebsverluste in %:")
                                 .foregroundColor(.gray)
+                            
+                            Spacer()
+                            
                             Text(String(losses))
                                 .foregroundColor(.black)
-                              
+                            
                         }
                         .padding(.bottom)
                     } else {
                         Text("Keine Daten zu den Betriebsverlusten verfügbar.")
+                            .foregroundColor(.red)
+                        
                     }
                     
                     
-                        if let solradMonthly = viewModel.inverter?.outputs?.solrad_monthly {
-                            let currentMonthIndex = Calendar.current.component(.month, from: Date()) - 1
-                            if currentMonthIndex < solradMonthly.count {
-                                HStack {
-                                    VStack{
-                                        Text("Monatl. Sonnenstrahlung")
-                                                   .foregroundColor(.gray)
-                                               Text("für \(currentMonthIndex + 1). Monat")
-                                                   .foregroundColor(.gray)
-                                    }
-                                    Text(String(format: "%.2f kWh/m²", solradMonthly[currentMonthIndex]))
-                                                 .foregroundColor(.black)
+                    if let solradMonthly = viewModel.inverter?.outputs?.solrad_monthly {
+                        let currentMonthIndex = Calendar.current.component(.month, from: Date()) - 1
+                        if currentMonthIndex < solradMonthly.count {
+                            HStack(alignment: .top) {
+                                VStack(alignment: .leading){
+                                    Text("Monatl. Sonnenstrahlung")
+                                        .foregroundColor(.gray)
+                                    Text("für \(currentMonthIndex + 1). Monat")
+                                        .foregroundColor(.gray)
                                 }
-                            } else {
-                                Text("Keine Daten für den aktuellen Monat verfügbar.")
+                                
+                                Spacer()
+                                
+                                Text(String(format: "%.2f kWh/m²", solradMonthly[currentMonthIndex]))
+                                    .foregroundColor(.black)
                             }
+                            .padding(.bottom)
                         } else {
-                            Text("Keine Daten verfügbar.")
+                            Text("Keine Daten für den aktuellen Monat verfügbar.")
+                                .foregroundColor(.red)
+                            
                         }
+                    } else {
+                        Text("Keine Daten verfügbar.")
+                            .foregroundColor(.red)
+                        
+                    }
                     
-                   
+                    if let acAnnual = viewModel.inverter?.outputs?.ac_annual {
+                        HStack {
+                            Text("Jährliche AC-Leistung")
+                                .foregroundColor(.gray)
+                            
+                            Spacer()
+                            
+                            Text(String(format: "%.2f kWh", acAnnual))
+                                .foregroundColor(.black)
+                        }
+                        .padding(.bottom)
+                    } else {
+                        Text("Keine Daten zur jährlichen AC-Leistung verfügbar.")
+                            .foregroundColor(.red)
+                    }
+                    
+                    
+                    if let weatherDataSource =
+                        viewModel.inverter?.station_info?.weather_data_source {
+                        HStack(alignment: .top) {
+                            Text("Wetterdaten")
+                                .foregroundColor(.gray)
+                            
+                            Spacer()
+                            
+                            VStack(alignment: .leading){
+                                Text(String(weatherDataSource))
+                            }
+                            
+                        }
+                        .padding(.bottom)
+                        
+                    } else {
+                        Text("Keine Daten verfügbar.")
+                    }
+                    
+                    if let dcAcRatioStrings =
+                        viewModel.inverter?.inputs?.dc_ac_ratio {
+                        HStack(alignment: .top) {
+                            Text("Verhältnis DC AC")
+                                .foregroundStyle(.gray)
+                            
+                            Spacer()
+                            
+                            Text(dcAcRatioStrings)
+                            
+                            
+                            
+                        }
+                        .padding(.bottom)
+                        
+                    } else {
+                        Text("Keine Daten verfügbar.")
+                    }
+                    
                     
                 }
                 
@@ -144,7 +238,7 @@ struct PanelDetailView: View {
     }
 }
 
+
 #Preview {
     PanelDetailView()
 }
-
