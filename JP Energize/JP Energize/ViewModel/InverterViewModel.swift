@@ -7,12 +7,13 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 
 @MainActor
 class InverterViewModel: ObservableObject {
     
-    @Published var inverter: Inverter?
+    @Published var inverter: InverterModel?
     @Published var error: String?
     @Published var localError: InverterAPIError?
     @Published var selectedMonth: Int = 1
@@ -101,5 +102,18 @@ class InverterViewModel: ObservableObject {
             return dailyKWh * adjustmentFactor
         }
         
+    }
+    
+    func createInverter(solradMonthly: Float, state: String, context: NSManagedObjectContext) {
+        let newInverter = InverterEntity(context: context)
+        newInverter.solradMonthly = solradMonthly
+        newInverter.state = state
+
+        do {
+            try context.save()
+            print("Inverter successfully created with solradMonthly: \(solradMonthly) and state: \(state)")
+        } catch {
+            print("Failed to save inverter: \(error)")
+        }
     }
 }
