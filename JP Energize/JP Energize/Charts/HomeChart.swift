@@ -61,9 +61,9 @@ struct HomeChart: View {
                     .foregroundStyle(weeklyValues[index] == weeklyMaxValue ? Color.green : Color.blue)
                 }
             }
-            .chartYScale(domain: 0...10)
+            .chartYScale(domain: 0...16)
             .chartYAxis {
-                AxisMarks(values: Array(stride(from: 0, through: 10, by: 2)))
+                AxisMarks(values: Array(stride(from: 0, through: 16, by: 2)))
             }
             .aspectRatio(1, contentMode: .fill)
             .padding()
