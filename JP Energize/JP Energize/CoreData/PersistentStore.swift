@@ -13,7 +13,7 @@ struct PersistentStore {
     static let shared = PersistentStore()
     
     init() {
-        container = NSPersistentContainer(name: "Core Data")
+        container = NSPersistentContainer(name: "Data")
         
         container.viewContext.automaticallyMergesChangesFromParent = true
         
