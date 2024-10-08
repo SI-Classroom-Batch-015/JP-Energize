@@ -21,7 +21,7 @@ struct AuthenticationView: View {
         VStack(spacing: 20) {
             
           
-            
+
             Image("jpenergize")
                 .resizable()
                 .scaledToFill()
