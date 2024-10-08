@@ -13,9 +13,9 @@ import Observation
 @Observable
 class UserViewModel {
     
-    func signUp(email: String, password: String) async {
+    func signUp(email: String, password: String, firstName: String, lastName: String) async {
         do {
-            try await FirebaseAuthManager.shared.signUp(email: email, password: password)
+            try await FirebaseAuthManager.shared.signUp(email: email, password: password, firstName: firstName, lastName: lastName)
         } catch {
             print("Error signUp!\(error.localizedDescription)")
         }
