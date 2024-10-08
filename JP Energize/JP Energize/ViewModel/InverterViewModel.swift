@@ -13,6 +13,7 @@ import CoreData
 @MainActor
 class InverterViewModel: ObservableObject {
     
+    @Published var inverterHistory: [InverterEntity]?
     @Published var inverter: InverterModel?
     @Published var error: String?
     @Published var localError: InverterAPIError?
@@ -24,14 +25,26 @@ class InverterViewModel: ObservableObject {
     
     init() {
         
+        
         load()
+        loadInverter()
+        print("\(String(describing: inverterHistory?.count))")
+        
     }
+    
+    
     
     func load() {
         Task {
             do {
                 
-                self.inverter = try await repository.fetchInverter()
+                let inverter = try await repository.fetchInverter()
+                
+                self.inverter = inverter
+                
+                
+                createInverter(acAnnual: inverter.outputs?.ac_annual ?? 0.0, state: inverter.station_info?.state ?? "")
+                
                 
             } catch let apiError as InverterAPIError {
                 self.error = apiError.description
@@ -104,16 +117,38 @@ class InverterViewModel: ObservableObject {
         
     }
     
-    func createInverter(solradMonthly: Float, state: String, context: NSManagedObjectContext) {
-        let newInverter = InverterEntity(context: context)
-        newInverter.solradMonthly = solradMonthly
-        newInverter.state = state
-
+    func createInverter(acAnnual: Float, state: String) {
+        let fetchRequest: NSFetchRequest<InverterEntity> = InverterEntity.fetchRequest()
+        
         do {
-            try context.save()
-            print("Inverter successfully created with solradMonthly: \(solradMonthly) and state: \(state)")
+            let existingInverters = try persistentStore.context.fetch(fetchRequest)
+            
+            if existingInverters.first != nil {
+                return
+            }
+            
+            let newInverter = InverterEntity(context: persistentStore.context)
+            newInverter.id = UUID().uuidString
+            newInverter.acAnnual = acAnnual
+            newInverter.state = state
+
+            try persistentStore.context.save()
+            print("Inverter successfully created with acAnnual: \(acAnnual) and state: \(state)")
+            
         } catch {
-            print("Failed to save inverter: \(error)")
+            print("Failed to fetch or save inverter: \(error)")
         }
     }
+    
+    func loadInverter() {
+        do {
+            let request: NSFetchRequest<InverterEntity> = InverterEntity.fetchRequest()
+            let inverters = try persistentStore.context.fetch(request)
+            inverterHistory = inverters
+        } catch let error as NSError {
+            NSLog("Unresolved error loading inverter: \(error), \(error.userInfo)")
+        }
+    }
+    
+    var persistentStore = PersistentStore.shared
 }
