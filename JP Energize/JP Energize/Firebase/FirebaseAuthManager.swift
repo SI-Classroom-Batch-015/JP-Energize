@@ -15,6 +15,7 @@ class FirebaseAuthManager {
     
     private let auth = Auth.auth()
     
+    
     var user: User?
     
     var isUserSignedIn: Bool {
@@ -25,11 +26,16 @@ class FirebaseAuthManager {
         user?.uid
     }
     
-    func signUp(email: String, password: String) async throws {
+    func signUp(email: String, password: String, firstName: String, lastName: String) async throws {
         let authResult = try await auth.createUser(withEmail: email, password: password)
         guard let email = authResult.user.email else { throw AuthError.noEmail }
         print("User with email '\(email)' is registered with id '\(authResult.user.uid)'")
+        
+        FirestoreManager.shared.createFireUser(id: authResult.user.uid, email: email,firstName: firstName, lastName: lastName)
+        
         try await self.signIn(email: email, password: password)
+        
+        
     }
 
     func signIn(email: String, password: String) async throws {
