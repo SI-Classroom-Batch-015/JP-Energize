@@ -8,10 +8,47 @@
 import SwiftUI
 
 struct StatisticSettingsSheetView: View {
+    @ObservedObject var viewModel = InverterViewModel()
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+        ZStack {
+                   Image("energieSettings")
+                       .resizable()
+                       .scaledToFill()
+                       .ignoresSafeArea() 
+
+                   VStack {
+                       HStack {
+                           Button(action: {
+                               dismiss()
+                           }) {
+                               Image(systemName: "xmark")
+                                   .foregroundColor(.gray)
+                                   .padding()
+                           }
+                           Spacer()
+                       }
+                       .padding([.top, .leading])
+                       
+                       Spacer()
+
+                       VStack {
+                           Text("AC Annual: \(viewModel.inverter?.outputs?.ac_annual ?? 0, specifier: "%.2f") kWh")
+                           Text("State: \(viewModel.inverter?.station_info?.state ?? "Unknown")")
+                       }
+                       .padding()
+                       .background(Color(UIColor.systemGray6))
+                       .cornerRadius(10)
+                       .padding()
+                       
+                       Spacer()
+                   }
+                   .padding(.top, 20)
+               }
+           }
+       }
+
 
 #Preview {
     StatisticSettingsSheetView()
