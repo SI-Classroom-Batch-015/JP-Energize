@@ -10,6 +10,8 @@ import SwiftUI
 struct SignUpSheet: View {
     @State var email = ""
     @State var password = ""
+    @State var firstName = ""
+    @State var lastName = ""
     @State var userViewModel = UserViewModel()
     @State var isPresenting = false
     @Environment(\.dismiss) private var dismiss
@@ -56,6 +58,20 @@ struct SignUpSheet: View {
                     .cornerRadius(10)
                     .padding(.horizontal, 20)
                 
+                TextField("firstName", text: $firstName)
+                    .padding()
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(10)
+                    .padding(.horizontal, 20)
+                
+                TextField("lastName", text: $lastName)
+                    .padding()
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(10)
+                    .padding(.horizontal, 20)
+                
+                
+                
                 Button("SignUp") {
                     attemptSignUp()
                     dismiss()
@@ -77,7 +93,7 @@ struct SignUpSheet: View {
     
     func attemptSignUp() {
         Task {
-            await userViewModel.signUp(email: email, password: password)
+            await userViewModel.signUp(email: email, password: password, firstName: firstName, lastName: lastName)
         }
     }
 }
