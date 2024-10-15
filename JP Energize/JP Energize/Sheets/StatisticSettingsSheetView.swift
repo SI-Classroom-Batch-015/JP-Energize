@@ -24,7 +24,7 @@ struct StatisticSettingsSheetView: View {
                                dismiss()
                            }) {
                                Image(systemName: "xmark")
-                                   .foregroundColor(.gray)
+                                   .foregroundColor(.white)
                                    .padding()
                            }
                            Spacer()
@@ -34,8 +34,8 @@ struct StatisticSettingsSheetView: View {
                        Spacer()
 
                        VStack {
-                           Text("AC Annual: \(viewModel.inverter?.outputs?.ac_annual ?? 0, specifier: "%.2f") kWh")
-                           Text("State: \(viewModel.inverter?.station_info?.state ?? "Unknown")")
+                           Text("Jahreswert: \(viewModel.inverter?.outputs?.ac_annual ?? 0, specifier: "%.2f") kWh")
+                           Text("Ort: \(viewModel.inverter?.station_info?.state ?? "Unknown")")
                        }
                        .padding()
                        .background(Color(UIColor.systemGray6))

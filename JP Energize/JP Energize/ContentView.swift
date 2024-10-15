@@ -18,7 +18,6 @@ struct ContentView: View {
                     .tabItem {
                         Label("Home", systemImage: "house")
                     }
-
                 PanelDetailView()
                     .tabItem {
                         Label("Panel Details", systemImage: "light.panel")

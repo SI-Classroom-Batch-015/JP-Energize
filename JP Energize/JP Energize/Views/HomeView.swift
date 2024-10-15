@@ -7,14 +7,20 @@
 
 import SwiftUI
 
+
 struct HomeView: View {
     
+    @State private var profileViewModel = ProfileViewModel()
+
     @ObservedObject private var viewModel = InverterViewModel()
     @State private var selectedOption: HomePicker = .month
     @State private var selectedMonth: Int = Calendar.current.component(.month, from: Date())
+    @State var selectedImage: UIImage?
+    
     
     var body: some View {
         Form{
+            
             Section {
                 
                 VStack {
@@ -133,32 +139,48 @@ struct HomeView: View {
                         .font(.caption)
                         .fontWeight(.medium)
                         .foregroundStyle(.gray)
-                    Text("")
-                        .font(.subheadline)
+                    Text(profileViewModel.profile.firstName)
                         .fontWeight(.medium)
+                        .font(.subheadline)
                 }
                 .padding(.horizontal)
+                .padding(.top, 20)
             }
+            
             ToolbarItem(placement: .topBarTrailing) {
-                HStack{
-                    
+                HStack(spacing: 15) {
                     Image("glocke")
                         .resizable()
                         .scaledToFill()
                         .frame(width: 30, height: 30)
                     
+                   
                     
+                    if selectedImage != nil {
+                        Image(uiImage: selectedImage!)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
                     
-                    Image("thor")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 65, height: 65)
-                        .clipShape(Circle())
+                       
+                    } else {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(.gray)
+                    }
                 }
-                
+                .padding(.top, 20)  
+                .padding(.trailing, 10)
             }
         }
-        
+        .onAppear {
+            Task {
+                await profileViewModel.fetchProfile()
+            }
+        }
     }
     
 }
