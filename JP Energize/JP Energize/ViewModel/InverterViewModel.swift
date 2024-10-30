@@ -104,17 +104,19 @@ class InverterViewModel: ObservableObject {
               !acMonthly.isEmpty else {
             return []
         }
-        
+
         let currentMonthIndex = Calendar.current.component(.month, from: Date()) - 1
         let monthlyKWh = acMonthly[currentMonthIndex]
         let daysInCurrentMonth = daysInMonth[currentMonthIndex]
         let dailyKWh = monthlyKWh / Float(daysInCurrentMonth)
-        
-        return (1...7).map { day in
+
+        let currentWeekday = Calendar.current.component(.weekday, from: Date()) // Sonntag = 1, Montag = 2, ...
+        let numberOfDays = min(currentWeekday - 1, 7) // Maximal 7 Tage, aber nur bis zum heutigen Tag
+
+        return (1...numberOfDays).map { _ in
             let adjustmentFactor = Float.random(in: 0.8...1.2)
             return dailyKWh * adjustmentFactor
         }
-        
     }
     
     func createInverter(acAnnual: Float, state: String) {
