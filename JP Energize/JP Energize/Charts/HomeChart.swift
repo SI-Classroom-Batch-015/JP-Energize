@@ -13,13 +13,10 @@ struct HomeChart: View {
     @Binding var selectedOption: HomePicker
     var selectedMonth: Int
     
-    let months = ["01", "02", "03", "04", "05", "06",
-                  "07", "08", "09", "10", "11", "12"]
-    
+    let months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
     let weeks = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
     
     var body: some View {
-        
         
         let currentMonthIndex = Calendar.current.component(.month, from: Date()) - 1
         let monthlyValues = viewModel.inverter?.outputs?.ac_monthly ?? []
@@ -28,12 +25,10 @@ struct HomeChart: View {
         let weeklyValues = viewModel.weeklyKWh()
         let weeklyMaxValue = weeklyValues.max() ?? 0
         
-        let maxValue: Float = selectedOption == .week ? (weeklyValues.max() ?? 0) : (monthlyValues.prefix(currentMonthIndex + 1).max() ?? 0)
-        
+        let maxValue: Float = selectedOption == .week ? weeklyMaxValue : (monthlyValues.prefix(currentMonthIndex + 1).max() ?? 0)
         
         switch selectedOption {
         case .month:
-            
             Chart {
                 ForEach(0..<valuesToShow.count, id: \.self) { index in
                     BarMark(
@@ -49,7 +44,6 @@ struct HomeChart: View {
             }
             .aspectRatio(1, contentMode: .fill)
             .padding()
-            
             
         case .week:
             Chart {
