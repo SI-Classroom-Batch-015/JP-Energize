@@ -12,7 +12,7 @@ import Observation
 class ProfileViewModel {
     
     var profile: Profile = .sample
-    
+    var currentPassword: String = ""
     var newPassword: String = ""
     var newPasswordRepeat: String = ""
     var isValid: Bool {
@@ -22,7 +22,7 @@ class ProfileViewModel {
     
     init() {
         Task {
-           await fetchProfile()
+            await fetchProfile()
         }
     }
     
@@ -31,7 +31,8 @@ class ProfileViewModel {
         guard let userId = FirebaseAuthManager.shared.userID else { return }
         
         do {
-            try await FirestoreManager.shared.updateFireUser(withId: userId, newFirstName: profile.firstName, newLastName: profile.lastName, newEmail: profile.email, newPhoneNumber: profile.phoneNumber, address: profile.address)
+            try await FirestoreManager.shared.updateFireUser(withId: userId, newFirstName: profile.firstName, newLastName: profile.lastName, newEmail: profile.email, newPhoneNumber: profile.phoneNumber, address: profile.address,
+                newProfileImageURL: profile.profileImageUrl ?? "")
         } catch {
             print(error.localizedDescription)
         }
