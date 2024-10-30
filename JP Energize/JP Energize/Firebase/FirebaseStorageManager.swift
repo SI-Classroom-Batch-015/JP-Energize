@@ -29,7 +29,6 @@ class FirebaseStorageManager {
                     return
                 }
                 
-                // URL des Bildes erhalten
                 imageRef.downloadURL { (url, error) in
                     if let error = error {
                         print("Fehler beim Abrufen der Bild-URL: \(error.localizedDescription)")
