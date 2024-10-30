@@ -18,6 +18,7 @@ struct Profile: Codable {
     var phoneNumber: String = ""
     var updatedAt: Date? = nil
     var address: String = ""
+    var profileImageUrl: String? = nil
 }
 
 extension Profile {
@@ -58,7 +59,7 @@ class FirestoreManager {
         }
     }
     
-    func updateFireUser(withId id: String, newFirstName: String, newLastName: String, newEmail: String, newPhoneNumber: String, address: String) async throws {
+    func updateFireUser(withId id: String, newFirstName: String, newLastName: String, newEmail: String, newPhoneNumber: String, address: String, newProfileImageURL: String) async throws {
         let userRef = FirestoreManager.shared.db.collection("users").document(id)
         
         do {
@@ -68,7 +69,8 @@ class FirestoreManager {
                 "email": newEmail,
                 "phoneNumber": newPhoneNumber,
                 "updatedAt": Timestamp(date: Date()),
-                "address": address
+                "address": address,
+                "profileImageURL": newProfileImageURL
             ])
             print("User updated successfully")
         } catch {
@@ -76,4 +78,5 @@ class FirestoreManager {
             throw error
         }
     }
+    
 }
