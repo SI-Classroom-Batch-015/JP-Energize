@@ -17,7 +17,7 @@ struct SettingsView: View {
     @State private var showEditProfile = false
     @State private var showChangePassword = false
     @State private var deleteAccount = false
-    @State private var isPickerShowing = false
+    @State private var sheetShowing = false
     @State private var selectedImage: UIImage?
     
     
@@ -55,14 +55,14 @@ struct SettingsView: View {
                         
                         Button {
                             
-                            isPickerShowing = true
+                            sheetShowing = true
                             
                         } label: {
                             
                             Text("Foto auswählen/ändern")
                         }
-                        .sheet(isPresented: $isPickerShowing, onDismiss: nil) {
-                            ImagePicker(selectedImage: $selectedImage, isPickerShowing: $isPickerShowing)
+                        .sheet(isPresented: $sheetShowing) {
+                            ImageSheet(selectedImage: $selectedImage, sheetShowing: $sheetShowing)
                         }
                         
                         Button("Account löschen 😢") {
