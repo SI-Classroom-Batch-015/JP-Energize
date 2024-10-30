@@ -12,7 +12,7 @@ struct SignUpSheet: View {
     @State var password = ""
     @State var firstName = ""
     @State var lastName = ""
-    @State var userViewModel = UserViewModel()
+    @State var userViewModel = AuthViewModel()
     @State var isPresenting = false
     @Environment(\.dismiss) private var dismiss
     
