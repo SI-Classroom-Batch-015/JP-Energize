@@ -79,4 +79,16 @@ class FirestoreManager {
         }
     }
     
+    func deleteFireUser(withId id: String) async throws {
+            let userRef = db.collection("users").document(id)
+            
+            do {
+                try await userRef.delete()
+                print("User deleted successfully")
+            } catch {
+                print("Failed to delete user: \(error)")
+                throw error
+            }
+        }
+    
 }
