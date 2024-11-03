@@ -9,49 +9,21 @@ import SwiftUI
 import FirebaseAuth
 
 struct ChangePasswordSheet: View {
-    
+
     @Bindable var profileViewModel: ProfileViewModel
     @Environment(\.dismiss) var dismiss
     
-    @State private var message: String = ""
-    @State private var showMessage: Bool = false
-
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                
-                SecureField("Aktuelles Passwort", text: $profileViewModel.currentPassword)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 5)
-                    .padding(.horizontal)
 
-                SecureField("Neues Passwort", text: $profileViewModel.newPassword)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 5)
-                    .padding(.horizontal)
-
-                SecureField("Passwort wiederholen", text: $profileViewModel.newPasswordRepeat)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 5)
-                    .padding(.horizontal)
-
-                if showMessage {
-                    Text(message)
-                        .foregroundColor(message.contains("erfolgreich") ? .green : .red)
-                        .padding()
-                }
+                PasswordField(placeholder: "Aktuelles Passwort", text: $profileViewModel.currentPassword)
+                PasswordField(placeholder: "Neues Passwort", text: $profileViewModel.newPassword)
+                PasswordField(placeholder: "Passwort wiederholen", text: $profileViewModel.newPasswordRepeat)
 
                 Spacer()
 
-                Button(action: {
-                    changePassword()
-                }) {
+                Button(action: savePassword) {
                     Text("Passwort speichern")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
@@ -69,41 +41,60 @@ struct ChangePasswordSheet: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Abbrechen") {
+                        profileViewModel.resetPasswordSecureFields()
                         dismiss()
                     }
                 }
             }
+            .alert(isPresented: $profileViewModel.showAlert) {
+                Alert(
+                    title: Text(profileViewModel.alertType == .success ? "Erfolg" : "Fehler"),
+                    message: Text(profileViewModel.alertMessage),
+                    dismissButton: .default(Text("OK")) {
+                        if profileViewModel.alertType == .success {
+                            profileViewModel.resetPasswordSecureFields()
+                            dismiss()
+                        }
+                    }
+                )
+            }
         }
     }
     
-    private func changePassword() {
-        guard let user = Auth.auth().currentUser  else { return }
-        
-       
-        guard profileViewModel.newPassword == profileViewModel.newPasswordRepeat else {
-            message = "Die neuen Passwörter stimmen nicht überein."
-            showMessage = true
-            return
-        }
-        
-        let credential = EmailAuthProvider.credential(withEmail: user.email!, password: profileViewModel.currentPassword)
-        
-        user.reauthenticate(with: credential) { result, error in
-            if let error = error {
-                message = "Reauthentifizierung fehlgeschlagen: \(error.localizedDescription)"
-                showMessage = true
-                return
+    private func savePassword() {
+        profileViewModel.changePassword()
+    }
+}
+
+struct PasswordField: View {
+    var placeholder: String
+    @Binding var text: String
+    @State private var isVisible: Bool = false
+
+    var body: some View {
+        ZStack(alignment: .trailing) {
+            if isVisible {
+                TextField(placeholder, text: $text)
+                    .padding(.trailing, 40)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+                    .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 5)
+            } else {
+                SecureField(placeholder, text: $text)
+                    .padding(.trailing, 40)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+                    .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 5)
             }
-            user.updatePassword(to: profileViewModel.newPassword) { error in
-                if let error = error {
-                    message = "Passwortänderung fehlgeschlagen: \(error.localizedDescription)"
-                } else {
-                    message = "Passwort erfolgreich geändert."
-                    dismiss()
-                }
-                showMessage = true
+            Button(action: { isVisible.toggle() }) {
+                Image(systemName: isVisible ? "eye.fill" : "eye.slash.fill")
+                    .foregroundColor(.gray)
+                    .padding(.trailing, 10)
             }
         }
+        .padding(.horizontal)
     }
 }
 
