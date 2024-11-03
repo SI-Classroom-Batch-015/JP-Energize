@@ -12,13 +12,14 @@ import FirebaseAuth
 struct AuthenticationView: View {
     @State var email = ""
     @State var password = ""
-    @State var userViewModel = AuthViewModel()
+    @State var viewModel: AuthViewModel
     @State var isPresenting = false
     @Environment(\.dismiss) private var dismiss
     
     // Alert Properties
     
     @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
     
     // State variablen für Zurücksetzen des Passworts
 
@@ -26,24 +27,22 @@ struct AuthenticationView: View {
     @State private var resetEmilAddress: String = ""
     @State private var reEnterPassword: String = ""
     @State private var isLoading = false
-    @State private var alertMessage: String = ""
+    
     
     
     
     var body: some View {
         
         VStack(spacing: 20) {
-            
-          
 
             Image("jpenergize")
                 .resizable()
                 .scaledToFill()
-                .frame(height: 300)
+                .frame(height: 450)
                 .clipped()
                 .ignoresSafeArea(edges: .top)
-            
         }
+        .padding(.bottom)
         
         
         VStack(spacing: 5) {
@@ -55,7 +54,7 @@ struct AuthenticationView: View {
                 .font(.subheadline)
                 .foregroundColor(.gray)
         }
-        .padding(.bottom, 20)
+        .padding(.bottom, 10)
         
         VStack {
             
@@ -108,10 +107,11 @@ struct AuthenticationView: View {
             .padding(.top, 10)
         }
         .padding(.horizontal, 30)
+        .autocapitalization(.none)
         
         
         HStack{
-            Text("Dont have an Account ?")
+            Text("don't you have an account ?")
                 .foregroundStyle(.gray)
             
             Button("SignUp") {
@@ -119,9 +119,11 @@ struct AuthenticationView: View {
             }
         }
         .sheet(isPresented: $isPresenting) {
-            SignUpSheet(email: email, password: password)
+            SignUpSheet(email: email, password: password, viewModel: viewModel)
         }
+        .padding(.bottom, 40)
     }
+        
     
     func sendResetLink() {
         Task {
@@ -156,11 +158,11 @@ struct AuthenticationView: View {
     
     func attemptSignIn() {
         Task {
-            await userViewModel.signIn(email: email, password: password)
+            await viewModel.signIn(email: email, password: password)
         }
     }
 }
 
 #Preview {
-    AuthenticationView()
+    AuthenticationView(viewModel: AuthViewModel())
 }
