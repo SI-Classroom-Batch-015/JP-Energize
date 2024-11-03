@@ -20,7 +20,7 @@ struct EditProfileSheet: View {
         NavigationStack {
             VStack(spacing: 20) {
                 
-                Text("please fill all fields")
+                Text("Bitte alle Felder ausfüllen")
                     .foregroundStyle(profileViewModel.isValid ? .white: .red)
                 
                 TextField("Vorname", text: $profileViewModel.profile.firstName)
