@@ -74,6 +74,7 @@ class ProfileViewModel {
         guard newPassword.count >= passwordMinLength else {
             showError("Das Passwort muss mindestens \(passwordMinLength) Zeichen lang sein.")
             return false
+            
         }
         
         guard newPassword == newPasswordRepeat else {
@@ -91,7 +92,7 @@ class ProfileViewModel {
         }
         
         guard validatePasswords() else {
-            showError("Das Passwort darf nicht leer sein.")
+            showError(alertMessage)
             return
         }
         
@@ -117,12 +118,20 @@ class ProfileViewModel {
         guard let userId = FirebaseAuthManager.shared.userID else { return }
         
         do {
+            // Benutzerprofil aus Firestore löschen
             try await FirestoreManager.shared.deleteFireUser(withId: userId)
             
+            // Benutzerkonto aus Firebase Authentication löschen
             try await Auth.auth().currentUser?.delete()
             
             print("Konto erfolgreich gelöscht.")
             showSuccess("Konto erfolgreich gelöscht.")
+            
+            // Abmelden und kurze Verzögerung einfügen
+            try await Task.sleep(nanoseconds: 2_000_000_000)
+            
+            FirebaseAuthManager.shared.signOut()
+            
         } catch {
             print("Failed to delete account: \(error)")
             showError("Konto konnte nicht gelöscht werden: \(error.localizedDescription)")
@@ -145,5 +154,13 @@ class ProfileViewModel {
         alertMessage = message
         alertType = .success
         showAlert = true
+    }
+    
+    var needsProfileCompletion: Bool {
+        return profile.firstName.isEmpty ||
+        profile.lastName.isEmpty ||
+        profile.email.isEmpty ||
+        profile.phoneNumber.isEmpty ||
+        profile.address.isEmpty
     }
 }
