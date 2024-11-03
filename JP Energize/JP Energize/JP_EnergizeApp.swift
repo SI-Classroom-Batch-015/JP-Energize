@@ -20,7 +20,7 @@ struct JP_EnergizeApp: App {
             if FirebaseAuthManager.shared.isUserSignedIn {
                 ContentView()
             } else {
-                AuthenticationView()
+                AuthenticationView(viewModel: AuthViewModel())
             }
         }
     }
