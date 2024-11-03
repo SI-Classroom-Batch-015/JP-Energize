@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
-    var viewModel = InverterViewModel()
-    @State var profileViewModel = ProfileViewModel()
+    @State private var profileViewModel = ProfileViewModel()
+    @ObservedObject private var viewModel = InverterViewModel()
     
     @State private var showStatistics = false
     @State private var selectedLanguage: String = Locale.current.language.languageCode?.identifier ?? "de"
@@ -28,11 +28,11 @@ struct SettingsView: View {
                         showStatistics.toggle()
                     }
                     .sheet(isPresented: $showStatistics) {
-                        StatisticSettingsSheetView(viewModel: viewModel)
+                        StatisticSettingsSheetView(viewModel: viewModel) // viewModel hier übergeben
                     }
                     .foregroundStyle(.black)
                     .padding(.vertical, 4)
-                    
+
                     DisclosureGroup("Profil-Einstellungen") {
                         Button("Profil bearbeiten") {
                             showEditProfile.toggle()
@@ -103,6 +103,21 @@ struct SettingsView: View {
                     .bold()
                     .padding(.vertical)
                 }
+                
+                // Badge für Profilvervollständigung
+                if profileViewModel.needsProfileCompletion {
+                    HStack {
+                        Text("Bitte vervollständigen Sie Ihr Profil!")
+                            .foregroundColor(.red)
+                        Spacer()
+                        Image(systemName: "exclamationmark.bubble.fill")
+                            .foregroundColor(.red)
+                            .font(.headline)
+                    }
+                    .padding()
+                    .background(Color.yellow.opacity(0.2))
+                    .cornerRadius(10)
+                }
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Einstellungen")
@@ -112,6 +127,11 @@ struct SettingsView: View {
                     message: Text(profileViewModel.alertMessage),
                     dismissButton: .default(Text("OK"))
                 )
+            }
+        }
+        .onAppear {
+            Task {
+                await profileViewModel.fetchProfile() // Profil beim Auftauchen abrufen
             }
         }
     }
