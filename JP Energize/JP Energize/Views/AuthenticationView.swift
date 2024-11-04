@@ -15,6 +15,8 @@ struct AuthenticationView: View {
     @State var viewModel: AuthViewModel
     @State var isPresenting = false
     @Environment(\.dismiss) private var dismiss
+    @State var showPassword = false
+    
     
     // Alert Properties
     
@@ -56,7 +58,7 @@ struct AuthenticationView: View {
         }
         .padding(.bottom, 10)
         
-        VStack {
+        VStack(spacing:7) {
             
             TextField("Email", text: $email)
                 .padding()
@@ -65,11 +67,26 @@ struct AuthenticationView: View {
                 .padding(.horizontal, 30)
             
             
-            SecureField("Password", text: $password)
-                .padding()
-                .background(Color(.secondarySystemBackground))
-                .cornerRadius(10)
-                .padding(.horizontal, 30)
+            ZStack(alignment: .trailing) {
+                if showPassword {
+                    TextField("Password", text: $password)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                        .cornerRadius(10)
+                        .padding(.horizontal, 30)
+                } else {
+                    SecureField("Password", text: $password)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                        .cornerRadius(10)
+                        .padding(.horizontal, 30)
+                }
+                Button(action: { showPassword.toggle() }) {
+                    Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
+                        .foregroundColor(.gray)
+                        .padding(.trailing, 40)
+                }
+            }
             
             VStack(alignment: .trailing, spacing: 12, content: {
                 Button("Forgot Password?") {
@@ -119,7 +136,7 @@ struct AuthenticationView: View {
             }
         }
         .sheet(isPresented: $isPresenting) {
-            SignUpSheet(email: email, password: password, viewModel: viewModel)
+            SignUpSheet(viewModel: viewModel)
         }
         .padding(.bottom, 40)
     }
